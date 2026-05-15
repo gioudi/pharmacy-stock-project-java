@@ -1,0 +1,24 @@
+#OS generated files
+.DS_Store
+Thumbs.db
+
+
+#Build outputs
+/bin/
+/build/
+/target/
+
+
+# Eclipse specific files
+.metadata/
+.classpath
+.project
+.settings/
+
+# NetBeans specific files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
