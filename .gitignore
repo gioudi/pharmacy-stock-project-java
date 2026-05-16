@@ -16,6 +16,7 @@ Thumbs.db
 .settings/
 
 # NetBeans specific files
+nbproject
 nbproject/private/
 build/
 nbbuild/
