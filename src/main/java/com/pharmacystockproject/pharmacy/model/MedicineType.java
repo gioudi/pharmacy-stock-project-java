@@ -1,28 +1,22 @@
-package  com.pharmacystockproject.pharmacy.model;
-
-
-
+package com.pharmacystockproject.pharmacy.model;
 
 public enum MedicineType {
-    ANALGESICO("Analgesico"),
-    ANALEPTICO("Analeptico"),
-    ANESTESICO("Anestesico"),
-    ANTIACIDO("Antiacido"),
+    ANALGÉSICO("Analgésico"),
+    ANALÉPTICO("Analéptico"),
+    ANESTÉSICO("Anestésico"),
+    ANTIÁCIDO("Antiácido"),
     ANTIDEPRESIVO("Antidepresivo"),
-    ANTIBIOTICO("Antibiotico");
-
+    ANTIBIÓTICO("Antibiótico");
 
     private final String displayName;
-
 
     MedicineType(String displayName) {
         this.displayName = displayName;
     }
 
-
     @Override
 
-    public String toString(){
+    public String toString() {
         return displayName;
     }
 }

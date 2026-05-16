@@ -9,6 +9,7 @@ import com.pharmacystockproject.pharmacy.model.MedicineOrder;
 import com.pharmacystockproject.pharmacy.model.MedicineType;
 import com.pharmacystockproject.pharmacy.model.Provider;
 import com.pharmacystockproject.pharmacy.view.MainFormView;
+import com.pharmacystockproject.pharmacy.view.SummaryFormView;
 
 public class OrderController {
     private final MainFormView view;
@@ -76,20 +77,19 @@ public class OrderController {
             }
 
             Branch branch = null;
-            if(!view.isPrimaryBranchSelected() && !view.isSecondaryBranchSelected()){
+            if (!view.isPrimaryBranchSelected() && !view.isSecondaryBranchSelected()) {
                 errorMessages.append("- You must choose at least one branch");
-            } else if (view.isPrimaryBranchSelected() && view.isSecondaryBranchSelected() ){
+            } else if (view.isPrimaryBranchSelected() && view.isSecondaryBranchSelected()) {
                 errorMessages.append("- Please choose ONLY one branch");
-            }else {
+            } else {
                 branch = view.isPrimaryBranchSelected() ? Branch.PRIMARIA : Branch.SECUNDARIA;
             }
 
-
             if (errorMessages.length() > 0) {
-                JOptionPane.showMessageDialog(view, errorMessages.toString(), "Validation Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(view, errorMessages.toString(), "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
             } else {
                 MedicineOrder finalOrder = new MedicineOrder(name, type, quantity, provider, branch);
-
 
                 processValidOrder(finalOrder);
             }
@@ -98,9 +98,43 @@ public class OrderController {
     }
 
     private void processValidOrder(MedicineOrder order) {
-        System.out.println("Order successfully validated for; "+ order.getMedicineName());
-        
-        JOptionPane.showMessageDialog(view, "Order data validated! Ready to send to summary page.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        // Hide the primary input window
+
+        view.setVisible(false);
+
+        // Instantiate the Summary View
+
+        SummaryFormView summaryView = new SummaryFormView(order);
+
+        // Wire up the "Cancel Order" CTA
+
+        summaryView.addCancelListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                summaryView.dispose();
+
+                view.setVisible(true);
+            }
+        });
+
+        // Wire up the "Send Order" CTA
+
+        summaryView.addSendListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(summaryView, "Pedido Enviado.", "Order Dispatched",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                // Close everything down cleanly
+
+                summaryView.dispose();
+                view.dispose();
+
+                System.exit(0);
+            }
+        });
+
+        summaryView.setVisible(true);
     }
 
 }
