@@ -1,6 +1,7 @@
 package com.pharmacystockproject.pharmacy.view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import com.pharmacystockproject.pharmacy.model.MedicineType;
 
@@ -36,9 +37,11 @@ public class MainFormView extends JFrame {
         // Frame properties
 
         setTitle("Pharmacy Stock - Order Request");
-        setSize(450, 500);
+        setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        JPanel contentPane = (JPanel) getContentPane();
+        contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
         setLayout(new GridLayout(7, 2, 10, 15));
 
         initializeComponents();
